@@ -46,93 +46,96 @@
       <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="form-group ">
+
             <label class="control-label ">
        Catalogue number
       </label>
-            <input list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)"/>
+            <input list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)" />
             <datalist id="catNumberDropdown">
             </datalist>
           </div>
 
-          <div class="form-group ">
-            <label class="control-label ">
-                Car manufacturer
-              </label>
-            <input list="carManufacturerDropdown" name="carManufacturerDropdown" />
-            <datalist id="carManufacturerDropdown">
-              </datalist>
-          </div>
+          <div class="form-group">
+          <label class="control-label " for="carManufacturerModelField">
+              Car manufacturer
+            </label>
+          <input class="form-control" id="carManufacturerModelField" name="carManufacturerModelField" type="text" />
+        </div>
 
-          <div class="form-group ">
-            <label class="control-label " for="manufacturerModelField">
+        <div class="form-group ">
+          <label class="control-label " for="manufacturerModelField">
                 Manufacturer model
               </label>
-            <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" />
-          </div>
+          <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" />
+        </div>
 
-          <div class="form-group ">
-            <label class="control-label " for="carNumberField">
+        <div class="form-group ">
+          <label class="control-label " for="carNumberField">
        Car number
       </label>
-            <input class="form-control" id="carNumberField" name="carNumberField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="colourField">
+          <input class="form-control" id="carNumberField" name="carNumberField" type="text" />
+        </div>
+
+        <div class="form-group ">
+          <label class="control-label " for="colourField">
        Colour
       </label>
-            <input class="form-control" id="colourField" name="colourField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="carTypeField">
+          <input class="form-control" id="colourField" name="colourField" type="text" />
+        </div>
+
+        <div class="form-group ">
+          <label class="control-label " for="carTypeField">
        Car type
       </label>
-            <input class="form-control" id="carTypeField" name="carTypeField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="ltdEditionField">
+          <input class="form-control" id="carTypeField" name="carTypeField" type="text" />
+        </div>
+
+        <div class="form-group ">
+          <label class="control-label " for="ltdEditionField">
        Limited edition
       </label>
-            <input class="form-control" id="ltdEditionField" name="ltdEditionField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="modelManufacturerField">
+          <input class="form-control" id="ltdEditionField" name="ltdEditionField" type="text" />
+        </div>
+
+        <div class="form-group ">
+          <label class="control-label " for="modelManufacturerField">
        Model manufacturer
       </label>
-            <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="sourceField">
+          <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" />
+        </div>
+        <div class="form-group ">
+          <label class="control-label " for="sourceField">
        Source
       </label>
-            <input class="form-control" id="sourceField" name="sourceField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="carMakeField">
+          <input class="form-control" id="sourceField" name="sourceField" type="text" />
+        </div>
+        <div class="form-group ">
+          <label class="control-label " for="carMakeField">
        Car maker
       </label>
-            <input class="form-control" id="carMakeField" name="carMakeField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="yearField">
+          <input class="form-control" id="carMakeField" name="carMakeField" type="text" />
+        </div>
+        <div class="form-group ">
+          <label class="control-label " for="yearField">
        Year
       </label>
-            <input class="form-control" id="yearField" name="yearField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="costField">
+          <input class="form-control" id="yearField" name="yearField" type="text" />
+        </div>
+        <div class="form-group ">
+          <label class="control-label " for="costField">
        Cost
       </label>
-            <input class="form-control" id="costField" name="costField" type="text" />
-          </div>
-          <div class="form-group ">
-            <label class="control-label " for="remarksField">
+          <input class="form-control" id="costField" name="costField" type="text" />
+        </div>
+        <div class="form-group ">
+          <label class="control-label " for="remarksField">
        Remarks
       </label>
-            <input class="form-control" id="remarksField" name="remarksField" type="text" />
-          </div>
+          <input class="form-control" id="remarksField" name="remarksField" type="text" />
         </div>
       </div>
     </div>
+  </div>
   </div>
   <script>
     function onLoad() {

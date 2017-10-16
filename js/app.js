@@ -11,21 +11,21 @@ function getCatNumbers() {
   var catNumbers;
   $.getJSON("http://localhost:3000/allcars", function(data) {
     $.each(data, function(index, item) {
-      catNumbers += "<option value='" + item.cat_number + "'>" + item.cat_number + "</option>";
+      catNumbers += "<option value='" + item.cat_number + "'>" + item.cat_number + " " + item.car_manufacturer + " " + item.manufacturer_model + " " + item.car_number + " " + item.type + "</option>";
     });
     $('#catNumberDropdown').html(catNumbers);
   });
 };
 
-function getCarManufacturers() {
-  var carManufacturer;
-  $.getJSON("http://localhost:3000/allcars", function(data) {
-    $.each(data, function(index, item) {
-      carManufacturer += "<option value='" + item.car_manufacturer + "'>" + item.car_manufacturer + "</option>";
-    });
-    $('#carManufacturerDropdown').html(carManufacturer);
-  });
-};
+// function getCarManufacturers() {
+//   var carManufacturer;
+//   $.getJSON("http://localhost:3000/allcars", function(data) {
+//     $.each(data, function(index, item) {
+//       carManufacturer += "<option value='" + item.car_manufacturer + "'>" + item.car_manufacturer + "</option>";
+//     });
+//     $('#carManufacturerDropdown').html(carManufacturer);
+//   });
+// };
 
 function getACarsDetails(val) {
   console.log("Called in app.js");
@@ -59,6 +59,7 @@ function getACarsDetails(val) {
         year = data[0].year;
         // localStorage.setItem("vanSerialDriverSignOut", serialNumber);
         document.getElementById("manufacturerModelField").value = manufacturer_model;
+        document.getElementById("carManufacturerModelField").value = car_manufacturer;
         document.getElementById("carNumberField").value = car_number;
         document.getElementById("colourField").value = colour;
         document.getElementById("carTypeField").value = type;
