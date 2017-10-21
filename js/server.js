@@ -7,6 +7,17 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 var MongoClient = require('mongodb').MongoClient;
 
+var fs = require('fs');
+
+app.use(express.static('../'));
+
+//Landing Page
+app.get('/', function(req, res){
+  // res.sendFile(path.join(__dirname, '/index.html'));
+  res.sendFile('index.html', { root: '../' });
+});
+//
+
 // Connect to the db
 // MongoClient.connect("mongodb://localhost:27017/christestdb", function (err, db) {
 //      if(err) throw err;

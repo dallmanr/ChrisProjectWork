@@ -7,6 +7,7 @@
   <meta name="msapplication-tap-highlight" content="no" />
   <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
   <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
 
   <!-- Inline CSS based on choices in "Settings" tab -->
   <style>
@@ -29,8 +30,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/server.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/upload.js"></script>
 
-  <title>Test database queries for Chris' project</title>
+  <title>Add a new car</title>
 </head>
 
 <body>
@@ -44,94 +46,123 @@
   <div class="bootstrap-iso">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"><h1>Add a car</h1></div>
+        <div class="col-md-4"></div>
+      </div>
+      <div class="row">
 
+        <div class="col-md-4">
+          <ul>
+            <li><a href="index.html">View catalogue</a></li>
+            <li><a href="service_history.html">New service record</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-4">
           <div class="form-group ">
-            <label class="control-label ">
-       Catalogue number
-      </label>
-        <input class="form-control" id="catNumberField" name="catNumberField" type="text" />
+            <label class="control-label" for="catNumberField">
+              Catalogue number
+            </label>
+            <input class="form-control" id="catNumberField" name="catNumberField" type="text" required/>
           </div>
 
           <div class="form-group">
-          <label class="control-label " for="carManufacturerModelField">
+            <label class="control-label " for="carManufacturerModelField">
               Car manufacturer
             </label>
-          <input class="form-control" id="carManufacturerModelField" name="carManufacturerModelField" type="text" />
+          <input class="form-control" id="carManufacturerModelField" name="carManufacturerModelField" type="text" required/>
         </div>
 
         <div class="form-group ">
           <label class="control-label " for="manufacturerModelField">
                 Manufacturer model
               </label>
-          <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" />
+          <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" required/>
         </div>
 
         <div class="form-group ">
           <label class="control-label " for="carNumberField">
-       Car number
-      </label>
+            Car number
+          </label>
           <input class="form-control" id="carNumberField" name="carNumberField" type="text" />
         </div>
 
         <div class="form-group ">
           <label class="control-label " for="colourField">
-       Colour
-      </label>
-          <input class="form-control" id="colourField" name="colourField" type="text" />
+            Colour
+          </label>
+          <input class="form-control" id="colourField" name="colourField" type="text" required/>
         </div>
 
         <div class="form-group ">
-          <label class="control-label " for="carTypeField">
-       Car type
-      </label>
-          <input class="form-control" id="carTypeField" name="carTypeField" type="text" />
+            <label class="control-label " for="carTypeField">
+              Car type
+            </label>
+          <input class="form-control" id="carTypeField" name="carTypeField" type="text" required />
         </div>
 
         <div class="form-group ">
           <label class="control-label " for="ltdEditionField">
-       Limited edition
-      </label>
+            Limited edition
+          </label>
           <input class="form-control" id="ltdEditionField" name="ltdEditionField" type="text" />
         </div>
 
         <div class="form-group ">
           <label class="control-label " for="modelManufacturerField">
-       Model manufacturer
-      </label>
-          <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" />
+            Model manufacturer
+          </label>
+          <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" required/>
         </div>
+
         <div class="form-group ">
           <label class="control-label " for="sourceField">
-       Source
-      </label>
-          <input class="form-control" id="sourceField" name="sourceField" type="text" />
+            Source
+          </label>
+          <input class="form-control" id="sourceField" name="sourceField" type="text" required/>
         </div>
+
+        <div class="form-group ">
+            <label class="control-label " for="receivedField">
+              Date obtained
+            </label>
+          <input class="form-control" id="dateObtainedField" name="dateObtainedField" type="text" required />
+        </div>
+
         <div class="form-group ">
           <label class="control-label " for="carMakeField">
-       Car maker
-      </label>
-          <input class="form-control" id="carMakeField" name="carMakeField" type="text" />
+            Car maker
+        </label>
+          <input class="form-control" id="carMakeField" name="carMakeField" type="text" required/>
         </div>
+
         <div class="form-group ">
           <label class="control-label " for="yearField">
-       Year
-      </label>
+            Year
+          </label>
           <input class="form-control" id="yearField" name="yearField" type="text" />
         </div>
+
         <div class="form-group ">
           <label class="control-label " for="costField">
-       Cost
-      </label>
-          <input class="form-control" id="costField" name="costField" type="text" />
+            Cost
+          </label>
+          <input class="form-control" id="costField" name="costField" type="text" required />
         </div>
+
         <div class="form-group ">
           <label class="control-label " for="remarksField">
-       Remarks
-      </label>
+            Remarks
+          </label>
           <textarea class="form-control" id="remarksField" name="remarksField" placeholder="Remarks"></textarea>
         </div>
+
+        <input id="upload-input" type="file" name="uploads[]" class="btn btn-info btn-block">
+        <input type="submit" value="Submit" class="btn btn-primary btn-block">
+
       </div>
+      <div class="col-md-4"></div>
     </div>
   </div>
   </div>

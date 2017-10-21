@@ -15,7 +15,8 @@ var catalogue = new Schema({
   received: {Date, required: true},
   source: {String, required: true},
   make: {String, required: true},
-  year: Date
+  year: Date,
+  img_path: String
 });
 
 module.exports = mongoose.model('Catalogue', catalogue);
