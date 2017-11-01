@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var car = new Schema({
   remarks: String,
@@ -16,7 +17,8 @@ var car = new Schema({
   source: {type: String, required: true},
   make: {type: String, required: true},
   year: String,
-  img_path: String
+  img_path: String,
+  services: [{type: ObjectId, ref:'Service'}]
 });
 
 module.exports = mongoose.model('Car', car);

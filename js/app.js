@@ -43,7 +43,7 @@ app.post('/upload', function(req, res){
 
 //End of image upload code
 
-//Code for obtaining car details
+//Code for obtaining all car details
 function getCatNumbers() {
   var catNumbers;
   $.getJSON("http://localhost:3000/allcars", function(data) {
@@ -54,18 +54,8 @@ function getCatNumbers() {
   });
 };
 
-// function getCarManufacturers() {
-//   var carManufacturer;
-//   $.getJSON("http://localhost:3000/allcars", function(data) {
-//     $.each(data, function(index, item) {
-//       carManufacturer += "<option value='" + item.car_manufacturer + "'>" + item.car_manufacturer + "</option>";
-//     });
-//     $('#carManufacturerDropdown').html(carManufacturer);
-//   });
-// };
-
 function getACarsDetails(val) {
-  console.log("Called in app.js");
+  console.log("Called in app.js " + val );
   var catNumber = val;
   var remarks;
   var ltd_edition;
@@ -81,19 +71,19 @@ function getACarsDetails(val) {
   var make;
   var year;
   $.getJSON("http://localhost:3000/acar/" + catNumber, function(data) {
-        remarks = data[0].remarks;
-        ltd_edition = data[0].ltd_edition;
-        car_manufacturer = data[0].car_manufacturer;
-        manufacturer_model = data[0].manufacturer_model;
-        car_number = data[0].car_number;
-        colour = data[0].colour;
-        type = data[0].type;
-        model_manufacturer = data[0].model_manufacturer;
-        cost = data[0].cost;
-        received = data[0].received;
-        source = data[0].source;
-        make = data[0].make;
-        year = data[0].year;
+        ltd_edition = data.ltd_edition;
+        car_manufacturer = data.car_manufactuer;
+        manufacturer_model = data.manufacturer_model;
+        car_number = data.car_number;
+        colour = data.colour;
+        type = data.type;
+        model_manufacturer = data.model_manufacturer;
+        cost = data.cost;
+        received = data.received;
+        source = data.source;
+        make = data.make;
+        year = data.year;
+        // remarks = data.remarks;
         // localStorage.setItem("vanSerialDriverSignOut", serialNumber);
         document.getElementById("manufacturerModelField").value = manufacturer_model;
         document.getElementById("carManufacturerModelField").value = car_manufacturer;
@@ -106,6 +96,6 @@ function getACarsDetails(val) {
         document.getElementById("carMakeField").value = make;
         document.getElementById("yearField").value = year;
         document.getElementById("costField").value = cost;
-        document.getElementById("remarksField").value = remarks;
+        document.getElementById("remarksField").value = data.remarks;
     });
   };
