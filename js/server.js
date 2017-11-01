@@ -114,23 +114,24 @@ app.post('/newservice', function(req, res) {
 //Route for adding a new service record to a car
 //We want to find the car that is to have a service
 //Using the cat_number we can find the car we need.
-app.put('/service/car/add',
-  function(req, res) {
-    Car.findOne({
-      cat_number: req.body.cat_number
-    }, function(err, car) {
+//Add a service to a specific car
+app.put('/service/car/add', function(req, res) {
+    Service.findOne({
+      _id: req.body.serviceId
+    }, function(err, service) {
       if (err) {
         res.status(500).send({
           error: "Could not find car"
-        });
+        })
       } else {
-        Service.update({
-          _id: req.body.serviceId
+        console.log("Car found");
+        Car.update({
+          _id: req.body.carId
         }, {
           $addToSet: {
-            car: car._id
+            services: service._id
           }
-        }, function(err, service) {
+        }, function(err, car) {
           if (err) {
             res.status(500).send({
               error: "Could not add service record to car"
@@ -145,9 +146,11 @@ app.put('/service/car/add',
 
 //Obtain the service records of a car
 app.get('/servicehistory/:catnum', function(req, res) {
-  Car.find({}).populate({
+  Car.findOne({
+    cat_number: req.params.catnum
+  }).populate({
     path: 'services',
-    model: 'Car'
+    model: 'Service'
   }).exec(function(err, services) {
     if (err) {
       res.status(500).send({
