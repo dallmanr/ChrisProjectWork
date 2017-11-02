@@ -10,45 +10,12 @@ var fs = require('fs');
 
 var MongoClient = require('mongodb').MongoClient;
 
-//Code for dealing with image uploads
-app.post('/upload', function(req, res){
-
-  // create an incoming form object
-  var form = new formidable.IncomingForm();
-
-  // store all uploads in the /uploads directory
-  //Change this to the location on Chris' hard drive where he stores all the images?
-  form.uploadDir = path.join(__dirname, '/uploads');
-
-  // every time a file has been uploaded successfully,
-  // rename it to it's orignal name
-  form.on('file', function(field, file) {
-    fs.rename(file.path, path.join(form.uploadDir, file.name));
-  });
-
-  // log any errors that occur
-  form.on('error', function(err) {
-    console.log('An error has occured: \n' + err);
-  });
-
-  // once all the files have been uploaded, send a response to the client
-  form.on('end', function() {
-    res.end('success');
-  });
-
-  // parse the incoming request containing the form data
-  form.parse(req);
-
-});
-
-//End of image upload code
-
 //Code for obtaining all car details
 function getCatNumbers() {
   var catNumbers;
   $.getJSON("http://localhost:3000/allcars", function(data) {
     $.each(data, function(index, item) {
-      catNumbers += "<option value='" + item.cat_number + "'>" + item.cat_number + " " + item.car_manufacturer + " " + item.manufacturer_model + " " + item.car_number + " " + item.type + "</option>";
+      catNumbers += "<option value='" + item.cat_number + "'>" + + " " + item._id + " " + item.cat_number + " " + item.car_manufacturer + " " + item.manufacturer_model + " " + item.car_number + " " + item.type + "</option>";
     });
     $('#catNumberDropdown').html(catNumbers);
   });
@@ -72,7 +39,7 @@ function getACarsDetails(val) {
   var year;
   $.getJSON("http://localhost:3000/acar/" + catNumber, function(data) {
         ltd_edition = data.ltd_edition;
-        car_manufacturer = data.car_manufactuer;
+        car_manufacturer = data.car_manufacturer;
         manufacturer_model = data.manufacturer_model;
         car_number = data.car_number;
         colour = data.colour;
@@ -83,6 +50,8 @@ function getACarsDetails(val) {
         source = data.source;
         make = data.make;
         year = data.year;
+        remarks = data.remarks;
+        img_path = data.img_path;
         // remarks = data.remarks;
         // localStorage.setItem("vanSerialDriverSignOut", serialNumber);
         document.getElementById("manufacturerModelField").value = manufacturer_model;
@@ -96,6 +65,7 @@ function getACarsDetails(val) {
         document.getElementById("carMakeField").value = make;
         document.getElementById("yearField").value = year;
         document.getElementById("costField").value = cost;
-        document.getElementById("remarksField").value = data.remarks;
+        document.getElementById("remarksField").value =remarks;
+        document.getElementById('carImage').src = img_path;
     });
   };

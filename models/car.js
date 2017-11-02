@@ -6,7 +6,7 @@ var car = new Schema({
   remarks: String,
   cat_number: {type: String, required: true},
   ltd_edition: String,
-  car_manufactuer: {type: String, required: true},
+  car_manufacturer: {type: String, required: true},
   manufacturer_model: {type: String, required: true},
   car_number: Number,
   colour: {type: String, required: true},

@@ -17,6 +17,9 @@ var Service = require("../models/service")
 
 var fs = require('fs');
 
+var formidable = require('formidable');
+var fs = require('fs');
+
 app.use(express.static('../'));
 
 //Landing Page - Loaded when the user starts the server
@@ -63,11 +66,14 @@ app.get('/acar/:catnum', function(req, res) {
 //POST REQUESTS
 //The add a new car code via POST. Called from add_a_car.html file
 app.post("/addcar", function(req, res) {
+  var imagesFolder = "/images/";
+  var fullPath = imagesFolder + req.body.imgPathField;
   var newCar = new Car();
+  newCar.img_path = fullPath;
   newCar.remarks = req.body.remarksField;
   newCar.cat_number = req.body.catNumberField;
   newCar.ltd_edition = req.body.ltdEditionField;
-  newCar.car_manufactuer = req.body.carManufacturerModelField;
+  newCar.car_manufacturer = req.body.carManufacturerModelField;
   newCar.manufacturer_model = req.body.manufacturerModelField;
   newCar.car_number = req.body.carNumberField;
   newCar.colour = req.body.colourField;
@@ -78,11 +84,11 @@ app.post("/addcar", function(req, res) {
   newCar.source = req.body.sourceField;
   newCar.make = req.body.carMakeField;
   newCar.year = req.body.yearField;
-  newCar.img_path = req.body.uploads;
+  newCar.img_path = fullPath;
   newCar.save(function(err, savedCar) {
     if (err) {
       res.status(500).send({
-        error: "Could not save car"
+        error: "Could not save car " + err
       });
     } else {
       res.status(200).send({
@@ -90,8 +96,7 @@ app.post("/addcar", function(req, res) {
       });
     }
   });
-});
-//End of add a new car code
+}); //End of add a new car code
 
 //Need a route for creating a new service
 app.post('/newservice', function(req, res) {
@@ -109,40 +114,40 @@ app.post('/newservice', function(req, res) {
       res.status(200).send(newservice);
     }
   });
-});
+}); //end of newservice
 
 //Route for adding a new service record to a car
 //We want to find the car that is to have a service
 //Using the cat_number we can find the car we need.
 //Add a service to a specific car
 app.put('/service/car/add', function(req, res) {
-    Service.findOne({
-      _id: req.body.serviceId
-    }, function(err, service) {
-      if (err) {
-        res.status(500).send({
-          error: "Could not find car"
-        })
-      } else {
-        console.log("Car found");
-        Car.update({
-          _id: req.body.carId
-        }, {
-          $addToSet: {
-            services: service._id
-          }
-        }, function(err, car) {
-          if (err) {
-            res.status(500).send({
-              error: "Could not add service record to car"
-            })
-          } else {
-            res.status(200).send(service);
-          }
-        });
-      }
-    });
+  Service.findOne({
+    _id: req.body.serviceId
+  }, function(err, service) {
+    if (err) {
+      res.status(500).send({
+        error: "Could not find car"
+      })
+    } else {
+      console.log("Car found");
+      Car.update({
+        _id: req.body.carId
+      }, {
+        $addToSet: {
+          services: service._id
+        }
+      }, function(err, car) {
+        if (err) {
+          res.status(500).send({
+            error: "Could not add service record to car"
+          })
+        } else {
+          res.status(200).send(service);
+        }
+      });
+    }
   });
+});
 
 //Obtain the service records of a car
 app.get('/servicehistory/:catnum', function(req, res) {
