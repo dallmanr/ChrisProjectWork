@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+var db = require('../js/db.js');
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -9,7 +11,7 @@ app.use(bodyParser.urlencoded({
 
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost:27017/christestdb');
+// var db = mongoose.connect('mongodb://localhost:27017/christestdb');
 
 var Schema = mongoose.Schema;
 var Car = require("../models/car");
@@ -48,17 +50,30 @@ app.get('/allcars', function(req, res) {
 
 //Code to obtain the information for one car. This car may be selected via the catalogue number datalist
 app.get('/acar/:catnum', function(req, res) {
+  var trHTML;
   Car.findOne({
-    cat_number: req.params.catnum
-  }, function(err, car) {
-    if (err) {
-      res.status(500).send({
-        error: "Could not find car"
-      });
-    } else {
-      res.status(200).send(car)
+      cat_number: req.params.catnum
+    }).populate({
+      path: 'services',
+      model: 'Service'
+    }).exec(function(err, services) {
+      if (err) {
+        res.status(500).send({
+          error: "Could not find service history of car"
+        });
+      } else {
+        res.status(200).send(services);
+      }
+    }),
+    function(err, car) {
+      if (err) {
+        res.status(500).send({
+          error: "Could not find car"
+        });
+      } else {
+        // res.status(200).send(car)
+      }
     }
-  })
 });
 //End of obtain one cars information code
 //END OF GET REQUESTS
@@ -101,9 +116,10 @@ app.post("/addcar", function(req, res) {
 //Need a route for creating a new service
 app.post('/newservice', function(req, res) {
   var newservice = new Service();
-  newservice.service_type = req.body.service_type;
-  newservice.service_details = req.body.service_details;
-  newservice.service_remarks = req.body.service_remarks;
+  var serviceId;
+  newservice.service_type = req.body.serviceTypeSelect;
+  newservice.service_details = req.body.serviceDetailsSelect;
+  newservice.service_remarks = req.body.remarksField;
 
   newservice.save(function(err, newservice) {
     if (err) {
@@ -120,34 +136,64 @@ app.post('/newservice', function(req, res) {
 //We want to find the car that is to have a service
 //Using the cat_number we can find the car we need.
 //Add a service to a specific car
-app.put('/service/car/add', function(req, res) {
-  Service.findOne({
-    _id: req.body.serviceId
-  }, function(err, service) {
+app.post('/service/car/add', function(req, res) {
+  var serviceId;
+  var carId = req.body.catNumberDropdown;
+  var newservice = new Service();
+  newservice.service_type = req.body.serviceTypeSelect;
+  newservice.service_details = req.body.serviceDetailsSelect;
+  newservice.service_remarks = req.body.remarksField;
+  newservice.save(function(err, newservice) {
     if (err) {
       res.status(500).send({
-        error: "Could not find car"
-      })
+        error: "Could not create new serivce"
+      });
     } else {
-      console.log("Car found");
-      Car.update({
-        _id: req.body.carId
-      }, {
-        $addToSet: {
-          services: service._id
-        }
-      }, function(err, car) {
+      serviceId = newservice._id;
+      Service.findOne({
+        _id: serviceId
+      }, function(err, service) {
         if (err) {
           res.status(500).send({
-            error: "Could not add service record to car"
+            error: "Could not find car"
           })
         } else {
-          res.status(200).send(service);
+          console.log("Car found");
+          Car.update({
+            cat_number: req.body.catNumberDropdown
+          }, {
+            $addToSet: {
+              services: service._id
+            }
+          }, function(err, car) {
+            if (err) {
+              res.status(500).send({
+                error: "Could not add service record to car"
+              })
+            } else {
+              // res.status(200).send(service);
+              Car.findOne({
+                cat_numer: carId
+              }).populate({
+                path: 'services',
+                model: 'Service'
+              }).exec(function(err, services) {
+                if (err) {
+                  res.status(500).send({
+                    error: "Could not find service history of car"
+                  });
+                } else {
+                  res.status(200).send(services);
+                }
+              })
+            }
+          });
         }
       });
-    }
+    };
   });
 });
+
 
 //Obtain the service records of a car
 app.get('/servicehistory/:catnum', function(req, res) {
@@ -165,6 +211,12 @@ app.get('/servicehistory/:catnum', function(req, res) {
       res.status(200).send(services);
     }
   });
+});
+// Take the data from the form
+// Find the car in the database based on catalogue number
+// Update the fields when submitted
+app.put('/change/car', function (req, res) {
+
 });
 
 //Starts the server and listens on the given port
