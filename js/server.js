@@ -52,16 +52,28 @@ app.get('/allcars', function(req, res) {
 app.get('/acar/:catnum', function(req, res) {
   var trHTML;
   Car.findOne({
-    cat_number: req.params.catnum
-  }, function(err, services) {
-    if (err) {
-      res.status(500).send({
-        error: "Could not find service history of car"
-      });
-    } else {
-      res.status(200).send(services);
+      cat_number: req.params.catnum
+    }).populate({
+      path: 'services',
+      model: 'Service'
+    }).exec(function(err, services) {
+      if (err) {
+        res.status(500).send({
+          error: "Could not find service history of car"
+        });
+      } else {
+        res.status(200).send(services);
+      }
+    }),
+    function(err, car) {
+      if (err) {
+        res.status(500).send({
+          error: "Could not find car"
+        });
+      } else {
+        res.status(200).send(car)
+      }
     }
-  })
 });
 //End of obtain one cars information code
 //END OF GET REQUESTS
@@ -189,35 +201,21 @@ app.get('/servicehistory/:catnum', function(req, res) {
     cat_number: req.params.catnum
   }).populate({
     path: 'services',
-    populate: {
-      path: 'services'
-    }
+    model: 'Service'
   }).exec(function(err, services) {
-      if (err) {
-        res.status(500).send({
-          error: "Could not get service history"
-        });
+    if (err) {
+      res.status(500).send({
+        error: "Could not find service history of car"
+      });
     } else {
-      res.status(200).send(services)
+      res.status(200).send(services);
     }
-  })
+  });
 });
-
-app.get('/servicedetails/:serviceid', function (req, res) {
-  Service.findOne({
-    _id: req.params.serviceid
-  }, function(err, service) {
-    if(err) {
-      res.status(500).send({error:"Service not found"})
-    } else {
-      res.status(200).send(service)
-    }
-  })
-})
 // Take the data from the form
 // Find the car in the database based on catalogue number
 // Update the fields when submitted
-app.put('/change/car', function(req, res) {
+app.put('/change/car', function (req, res) {
 
 });
 

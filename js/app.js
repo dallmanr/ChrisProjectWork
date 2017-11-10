@@ -42,45 +42,47 @@ function getACarsDetails(val) {
   var make;
   var year;
   $.getJSON("http://localhost:3000/acar/" + catNumber, function(car) {
-    dbId = car._id;
-    ltd_edition = car.ltd_edition;
-    car_manufacturer = car.car_manufacturer;
-    manufacturer_model = car.manufacturer_model;
-    car_number = car.car_number;
-    colour = car.colour;
-    type = car.type;
-    model_manufacturer = car.model_manufacturer;
-    cost = car.cost;
-    received = car.received;
-    source = car.source;
-    make = car.make;
-    year = car.year;
-    remarks = car.remarks;
-    img_path = car.img_path;
+      dbId = car._id;
+      ltd_edition = car.ltd_edition;
+      car_manufacturer = car.car_manufacturer;
+      manufacturer_model = car.manufacturer_model;
+      car_number = car.car_number;
+      colour = car.colour;
+      type = car.type;
+      model_manufacturer = car.model_manufacturer;
+      cost = car.cost;
+      received = car.received;
+      source = car.source;
+      make = car.make;
+      year = car.year;
+      remarks = car.remarks;
+      img_path = car.img_path;
 
-    car.services.forEach(function(car) {
-      console.log(car);
-      trHTML += '<tr><td>' + car.service_type + '</td><td>' + car.service_details + '</td><td>' +
-        car.remarks + '</td></tr>';
+      car.services.forEach(function(car) {
+        //index is the name of each of the returned fields
+        //item is the value assigned to each field
+        console.log(car.service_type);
+        trHTML += '<tr><td>' + car.service_type + '</td><td>' + car.service_details + '</td><td>' +
+          car.remarks + '</td></tr>';
+      });
+      
+      // remarks = data.remarks;
+      // localStorage.setItem("vanSerialDriverSignOut", serialNumber);
+      document.getElementById("manufacturerModelField").value = manufacturer_model;
+      document.getElementById("carManufacturerModelField").value = car_manufacturer;
+      document.getElementById("carNumberField").value = car_number;
+      document.getElementById("colourField").value = colour;
+      document.getElementById("carTypeField").value = type;
+      document.getElementById("ltdEditionField").value = ltd_edition;
+      document.getElementById("modelManufacturerField").value = model_manufacturer;
+      document.getElementById("sourceField").value = source;
+      document.getElementById("carMakeField").value = make;
+      document.getElementById("yearField").value = year;
+      document.getElementById("costField").value = cost;
+      document.getElementById("remarksField").value = remarks;
+      document.getElementById('carImage').src = img_path;
+
+      $("#serviceHistory").append(trHTML);
+
     });
-
-    $("#serviceHistory").append(trHTML);
-
-    document.getElementById("manufacturerModelField").value = manufacturer_model;
-    document.getElementById("carManufacturerModelField").value = car_manufacturer;
-    document.getElementById("carNumberField").value = car_number;
-    document.getElementById("colourField").value = colour;
-    document.getElementById("carTypeField").value = type;
-    document.getElementById("ltdEditionField").value = ltd_edition;
-    document.getElementById("modelManufacturerField").value = model_manufacturer;
-    document.getElementById("sourceField").value = source;
-    document.getElementById("carMakeField").value = make;
-    document.getElementById("yearField").value = year;
-    document.getElementById("costField").value = cost;
-    document.getElementById("remarksField").value = remarks;
-    document.getElementById('carImage').src = img_path;
-
-    $("#serviceHistory").append(trHTML);
-
-  });
 };
