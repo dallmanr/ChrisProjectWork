@@ -11,7 +11,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
   <script type="text/javascript" src="js/server.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -38,110 +40,114 @@
       </li>
     </ul>
   </nav>
-  <div class="col-md-4">
-    <div class="form-group ">
-      <label class="control-label" for="catNumberDropdown">
+
+  <!-- <form method="post" action="/update/car/"> -->
+  <form method="post" id="editForm" onsubmit="submitFunction()">
+    <div class="col-md-4">
+      <div class="form-group ">
+        <label class="control-label">
       Catalogue number<br>
     </label>
-      <input list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)" />
-      <datalist id="catNumberDropdown">
+        <input class="form-control" list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)" />
+        <datalist id="catNumberDropdown">
     </datalist>
-    </div>
+      </div>
 
-    <div class="form-group">
-      <label class="control-label " for="carManufacturerModelField">
+      <div class="form-group">
+        <label class="control-label " for="carManufacturerModelField">
       Car manufacturer
     </label>
-      <input class="form-control" id="carManufacturerModelField" name="carManufacturerModelField" type="text" />
-    </div>
+        <input class="form-control" id="carManufacturerModelField" name="carManufacturerModelField" type="text" />
+      </div>
 
-    <div class="form-group ">
-      <label class="control-label " for="manufacturerModelField">
+      <div class="form-group ">
+        <label class="control-label " for="manufacturerModelField">
         Manufacturer model
       </label>
-      <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" />
-    </div>
+        <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" />
+      </div>
 
-    <div class="form-group ">
-      <label class="control-label " for="carNumberField">
+      <div class="form-group ">
+        <label class="control-label " for="carNumberField">
 Car number
 </label>
-      <input class="form-control" id="carNumberField" name="carNumberField" type="text" />
-    </div>
+        <input class="form-control" id="carNumberField" name="carNumberField" type="text" />
+      </div>
 
-    <div class="form-group ">
-      <label class="control-label " for="colourField">
+      <div class="form-group ">
+        <label class="control-label " for="colourField">
 Colour
 </label>
-      <input class="form-control" id="colourField" name="colourField" type="text" />
-    </div>
+        <input class="form-control" id="colourField" name="colourField" type="text" />
+      </div>
 
-    <div class="form-group ">
-      <label class="control-label " for="carTypeField">
+      <div class="form-group ">
+        <label class="control-label " for="carTypeField">
 Car type
 </label>
-      <input class="form-control" id="carTypeField" name="carTypeField" type="text" />
-    </div>
+        <input class="form-control" id="carTypeField" name="carTypeField" type="text" />
+      </div>
 
-    <div class="form-group ">
-      <label class="control-label " for="ltdEditionField">
+      <div class="form-group ">
+        <label class="control-label " for="ltdEditionField">
 Limited edition
 </label>
-      <input class="form-control" id="ltdEditionField" name="ltdEditionField" type="text" />
-    </div>
+        <input class="form-control" id="ltdEditionField" name="ltdEditionField" type="text" />
+      </div>
 
-    <div class="form-group ">
-      <label class="control-label " for="modelManufacturerField">
+      <div class="form-group ">
+        <label class="control-label " for="modelManufacturerField">
 Model manufacturer
 </label>
-      <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" />
-    </div>
-    <div class="form-group ">
-      <label class="control-label " for="sourceField">
+        <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" />
+      </div>
+      <div class="form-group ">
+        <label class="control-label " for="sourceField">
 Source
 </label>
-      <input class="form-control" id="sourceField" name="sourceField" type="text" />
-    </div>
-    <div class="form-group ">
-      <label class="control-label " for="carMakeField">
+        <input class="form-control" id="sourceField" name="sourceField" type="text" />
+      </div>
+      <div class="form-group ">
+        <label class="control-label " for="carMakeField">
 Car maker
 </label>
-      <input class="form-control" id="carMakeField" name="carMakeField" type="text" />
-    </div>
-    <div class="form-group ">
-      <label class="control-label " for="yearField">
+        <input class="form-control" id="carMakeField" name="carMakeField" type="text" />
+      </div>
+      <div class="form-group ">
+        <label class="control-label " for="yearField">
 Year
 </label>
-      <input class="form-control" id="yearField" name="yearField" type="text" />
-    </div>
-    <div class="form-group ">
-      <label class="control-label " for="costField">
+        <input class="form-control" id="yearField" name="yearField" type="text" />
+      </div>
+      <div class="form-group ">
+        <label class="control-label " for="costField">
 Cost
 </label>
-      <input class="form-control" id="costField" name="costField" type="text" />
-    </div>
-    <div class="form-group ">
-      <label class="control-label " for="remarksField">
+        <input class="form-control" id="costField" name="costField" type="text" />
+      </div>
+      <div class="form-group ">
+        <label class="control-label " for="remarksField">
 Remarks
 </label>
-      <input class="form-control" id="remarksField" name="remarksField" type="text" />
+        <input class="form-control" id="remarksField" name="remarksField" type="text" />
+      </div>
+
+      <div>
+        <img src="#" id="carImage" alt="Catalogue car image" height="400" width="400">
+      </div>
+
+      <input id="upload-input" type="file" name="uploads[]" class="btn btn-info btn-block" onChange="setPath()">
+      <input type="submit" value="Save car" class="btn btn-primary btn-block">
+
+      <div class="form-group ">
+        <label class="control-label " for="imgPathField">
+Path
+</label>
+        <input class="form-control" id="imgPathField" name="imgPathField" type="text" />
+      </div>
+
     </div>
-  </div>
-  <div class="col-md-4">
-    <img src="#" id="carImage" alt="Catalogue car image" height="400" width="400">
-  </div>
-
-  <strong>Service history:</strong>
-<table id="serviceHistory" class="table table-bordered" style="width:100%">
-  <thead>
-    <tr>
-      <th>Service details</th>
-      <th>Service Types</th>
-      <th>Remarks</th>
-    </tr>
-  </thead>
-</table>
-
+  </form>
   <script>
     function onLoad() {
       getCatNumbers();
@@ -150,8 +156,28 @@ Remarks
   </script>
   <script>
     function getCarDetails(val) {
+      localStorage.setItem("catNumber", val);
+      var catNumber = localStorage.getItem("catNumber");
       console.log("Called in index");
+      console.log(catNumber);
       getACarsDetails(val);
+    }
+  </script>
+
+  <script>
+    function setPath() {
+      var folder = document.getElementById('carTypeField').value + '/';
+      var image = document.getElementById('upload-input').value.split('\\').pop();
+      document.getElementById("imgPathField").value = folder + image;
+    }
+  </script>
+
+  <script>
+    function submitFunction() {
+      console.log(document.getElementById('catNumberDropdown'));
+      var action_src = "http://localhost:3000/update/car/" + localStorage.getItem("catNumber");
+      var aForm = document.getElementById('editForm');
+      aForm.action = action_src;
     }
   </script>
 </body>

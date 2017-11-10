@@ -30,3 +30,20 @@ ul {
   background-color: #FA8900;
   border: none;
 }
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+ /* Alternate table row colours */
+tr:nth-child(even) {
+  background-color: #e3e4e8;
+  text-align: center;
+  font-size: small;
+}
+
+tr:nth-child(odd) {
+  background-color: white;
+  text-align: center;
+  font-size: small;
+}

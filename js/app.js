@@ -63,9 +63,9 @@ function getACarsDetails(val) {
         //item is the value assigned to each field
         console.log(car.service_type);
         trHTML += '<tr><td>' + car.service_type + '</td><td>' + car.service_details + '</td><td>' +
-          car.remarks + '</td></tr>';
+          car.service_remarks + '</td></tr>';
       });
-      
+
       // remarks = data.remarks;
       // localStorage.setItem("vanSerialDriverSignOut", serialNumber);
       document.getElementById("manufacturerModelField").value = manufacturer_model;

@@ -183,7 +183,7 @@ app.post('/service/car/add', function(req, res) {
                     error: "Could not find service history of car"
                   });
                 } else {
-                  res.status(200).send(services);
+                  res.status(200).send(car);
                 }
               })
             }
@@ -215,8 +215,51 @@ app.get('/servicehistory/:catnum', function(req, res) {
 // Take the data from the form
 // Find the car in the database based on catalogue number
 // Update the fields when submitted
-app.put('/change/car', function (req, res) {
-
+app.post('/update/car/:catnum', function(req, res) {
+  var imagesFolder = "/images/";
+  var fullPath = imagesFolder + req.body.imgPathField;
+  Car.findOne({
+    cat_number: req.params.catnum
+  }, function(err, car) {
+    if (err) {
+      res.status(500).send({
+        error: "Car not found"
+      });
+    } else {
+      console.log("Car found " + car);
+      Car.update({
+          cat_number: req.params.catnum
+        }, {$set: {
+          cat_number: req.params.catnum,
+          car_number: req.body.catNumberField,
+          car_manufacturer: req.body.carManufacturerModelField,
+          car_number: req.body.carNumberField,
+          cat_number: req.body.catNumberDropdown,
+          color: req.body.colourField,
+          cost: req.body.costField,
+          img_path: fullPath,
+          ltd_edition: req.body.ltdEditionField,
+          make: req.body.carMakeField,
+          manufacturer_model: req.body.manufacturerModelField,
+          model_manufacturer: req.body.modelManufacturerField,
+          received: req.body.yearField,
+          source: req.body.sourceField,
+          type: req.body.carTypeField,
+          remarks: req.body.remarksField,
+        }
+      },
+        function(err, car) {
+          if (err) {
+            console.log("Not updated " + err);
+            res.status(500).send({
+              error: "Car not updated " + err
+            })
+          } else {
+            res.status(200).send(car);
+          }
+        })
+    }
+  });
 });
 
 //Starts the server and listens on the given port

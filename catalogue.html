@@ -11,7 +11,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
   <script type="text/javascript" src="js/server.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -43,7 +45,7 @@
       <label class="control-label" for="catNumberDropdown">
       Catalogue number<br>
     </label>
-      <input list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)" />
+      <input class="form-control" list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)" />
       <datalist id="catNumberDropdown">
     </datalist>
     </div>
@@ -52,95 +54,96 @@
       <label class="control-label " for="carManufacturerModelField">
       Car manufacturer
     </label>
-      <input class="form-control" id="carManufacturerModelField" name="carManufacturerModelField" type="text" />
+      <input class="form-control" id="carManufacturerModelField" name="carManufacturerModelField" type="text" readonly/>
     </div>
 
     <div class="form-group ">
       <label class="control-label " for="manufacturerModelField">
         Manufacturer model
       </label>
-      <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" />
+      <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" readonly/>
     </div>
 
     <div class="form-group ">
       <label class="control-label " for="carNumberField">
 Car number
 </label>
-      <input class="form-control" id="carNumberField" name="carNumberField" type="text" />
+      <input class="form-control" id="carNumberField" name="carNumberField" type="text" readonly/>
     </div>
 
     <div class="form-group ">
       <label class="control-label " for="colourField">
 Colour
 </label>
-      <input class="form-control" id="colourField" name="colourField" type="text" />
+      <input class="form-control" id="colourField" name="colourField" type="text" readonly/>
     </div>
 
     <div class="form-group ">
       <label class="control-label " for="carTypeField">
 Car type
 </label>
-      <input class="form-control" id="carTypeField" name="carTypeField" type="text" />
+      <input class="form-control" id="carTypeField" name="carTypeField" type="text" readonly/>
     </div>
 
     <div class="form-group ">
       <label class="control-label " for="ltdEditionField">
 Limited edition
 </label>
-      <input class="form-control" id="ltdEditionField" name="ltdEditionField" type="text" />
+      <input class="form-control" id="ltdEditionField" name="ltdEditionField" type="text" readonly/>
     </div>
 
     <div class="form-group ">
       <label class="control-label " for="modelManufacturerField">
 Model manufacturer
 </label>
-      <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" />
+      <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" readonly/>
     </div>
     <div class="form-group ">
       <label class="control-label " for="sourceField">
 Source
 </label>
-      <input class="form-control" id="sourceField" name="sourceField" type="text" />
+      <input class="form-control" id="sourceField" name="sourceField" type="text" readonly/>
     </div>
     <div class="form-group ">
       <label class="control-label " for="carMakeField">
 Car maker
 </label>
-      <input class="form-control" id="carMakeField" name="carMakeField" type="text" />
+      <input class="form-control" id="carMakeField" name="carMakeField" type="text" readonly/>
     </div>
     <div class="form-group ">
       <label class="control-label " for="yearField">
 Year
 </label>
-      <input class="form-control" id="yearField" name="yearField" type="text" />
+      <input class="form-control" id="yearField" name="yearField" type="text" readonly/>
     </div>
     <div class="form-group ">
       <label class="control-label " for="costField">
 Cost
 </label>
-      <input class="form-control" id="costField" name="costField" type="text" />
+      <input class="form-control" id="costField" name="costField" type="text" readonly/>
     </div>
     <div class="form-group ">
       <label class="control-label " for="remarksField">
 Remarks
 </label>
-      <input class="form-control" id="remarksField" name="remarksField" type="text" />
+      <input class="form-control" id="remarksField" name="remarksField" type="text" readonly/>
     </div>
-  </div>
-  <div class="col-md-4">
-    <img src="#" id="carImage" alt="Catalogue car image" height="400" width="400">
-  </div>
 
-  <strong>Service history:</strong>
-<table id="serviceHistory" class="table table-bordered" style="width:100%">
-  <thead>
-    <tr>
-      <th>Service details</th>
-      <th>Service Types</th>
-      <th>Remarks</th>
-    </tr>
-  </thead>
-</table>
+    <div class="col-md-4">
+      <img src="#" id="carImage" alt="Catalogue car image" height="400" width="400">
+    </div>
+
+    <strong>Service history:</strong>
+    <table id="serviceHistory" class="table table-bordered" style="width:100%">
+      <thead>
+        <tr>
+          <th>Service details</th>
+          <th>Service Types</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
 
   <script>
     function onLoad() {
@@ -150,7 +153,10 @@ Remarks
   </script>
   <script>
     function getCarDetails(val) {
+      localStorage.setItem("catNumber", val);
+      var catNumber = localStorage.getItem("catNumber");
       console.log("Called in index");
+      console.log(catNumber);
       getACarsDetails(val);
     }
   </script>

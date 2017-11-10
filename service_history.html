@@ -12,6 +12,8 @@
 
   <script type="text/javascript" src="js/server.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -43,10 +45,10 @@
     <form method="post" action='/service/car/add'>
       <fieldset>
         <div class="form-group ">
-          <label class="control-label" for="catNumberDropdown">
+          <label class="control-label">
       Catalogue number<br>
     </label>
-          <input list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)" />
+          <input class="form-control" list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)" />
           <datalist id="catNumberDropdown">
     </datalist>
         </div>
@@ -178,7 +180,10 @@
 The elements on the page are filled in when a car has been selected -->
   <script>
     function getCarDetails(val) {
+      localStorage.setItem("catNumber", val);
+      var catNumber = localStorage.getItem("catNumber");
       console.log("Called in index");
+      console.log(catNumber);
       getACarsDetails(val);
     }
   </script>

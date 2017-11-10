@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var service = new Schema({
-  remarks: String,
+  service_remarks: String,
   service_type: {type: String, required: true},
   service_details: {type: String, required: true}
 });

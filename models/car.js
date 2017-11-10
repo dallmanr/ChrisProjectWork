@@ -12,7 +12,7 @@ var car = new Schema({
   colour: {type: String, required: true},
   type: {type: String, required: true},
   model_manufacturer: {type: String, required: true},
-  cost: {type: Number, required: true},
+  cost: {type: Number, default: 0, required: true},
   received: {type: String, required: true},
   source: {type: String, required: true},
   make: {type: String, required: true},
