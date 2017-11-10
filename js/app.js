@@ -24,6 +24,7 @@ function getCatNumbers() {
 };
 
 function getACarsDetails(val) {
+  var trHTML;
   console.log("Called in app.js " + val);
   var dbId;
   var catNumber = val;
@@ -40,36 +41,48 @@ function getACarsDetails(val) {
   var source;
   var make;
   var year;
-  $.getJSON("http://localhost:3000/acar/" + catNumber, function(data) {
-    dbId = data._id;
-    ltd_edition = data.ltd_edition;
-    car_manufacturer = data.car_manufacturer;
-    manufacturer_model = data.manufacturer_model;
-    car_number = data.car_number;
-    colour = data.colour;
-    type = data.type;
-    model_manufacturer = data.model_manufacturer;
-    cost = data.cost;
-    received = data.received;
-    source = data.source;
-    make = data.make;
-    year = data.year;
-    remarks = data.remarks;
-    img_path = data.img_path;
-    // remarks = data.remarks;
-    // localStorage.setItem("vanSerialDriverSignOut", serialNumber);
-    document.getElementById("manufacturerModelField").value = manufacturer_model;
-    document.getElementById("carManufacturerModelField").value = car_manufacturer;
-    document.getElementById("carNumberField").value = car_number;
-    document.getElementById("colourField").value = colour;
-    document.getElementById("carTypeField").value = type;
-    document.getElementById("ltdEditionField").value = ltd_edition;
-    document.getElementById("modelManufacturerField").value = model_manufacturer;
-    document.getElementById("sourceField").value = source;
-    document.getElementById("carMakeField").value = make;
-    document.getElementById("yearField").value = year;
-    document.getElementById("costField").value = cost;
-    document.getElementById("remarksField").value = remarks;
-    document.getElementById('carImage').src = img_path;
-  });
+  $.getJSON("http://localhost:3000/acar/" + catNumber, function(car) {
+      dbId = car._id;
+      ltd_edition = car.ltd_edition;
+      car_manufacturer = car.car_manufacturer;
+      manufacturer_model = car.manufacturer_model;
+      car_number = car.car_number;
+      colour = car.colour;
+      type = car.type;
+      model_manufacturer = car.model_manufacturer;
+      cost = car.cost;
+      received = car.received;
+      source = car.source;
+      make = car.make;
+      year = car.year;
+      remarks = car.remarks;
+      img_path = car.img_path;
+
+      car.services.forEach(function(car) {
+        //index is the name of each of the returned fields
+        //item is the value assigned to each field
+        console.log(car.service_type);
+        trHTML += '<tr><td>' + car.service_type + '</td><td>' + car.service_details + '</td><td>' +
+          car.remarks + '</td></tr>';
+      });
+      
+      // remarks = data.remarks;
+      // localStorage.setItem("vanSerialDriverSignOut", serialNumber);
+      document.getElementById("manufacturerModelField").value = manufacturer_model;
+      document.getElementById("carManufacturerModelField").value = car_manufacturer;
+      document.getElementById("carNumberField").value = car_number;
+      document.getElementById("colourField").value = colour;
+      document.getElementById("carTypeField").value = type;
+      document.getElementById("ltdEditionField").value = ltd_edition;
+      document.getElementById("modelManufacturerField").value = model_manufacturer;
+      document.getElementById("sourceField").value = source;
+      document.getElementById("carMakeField").value = make;
+      document.getElementById("yearField").value = year;
+      document.getElementById("costField").value = cost;
+      document.getElementById("remarksField").value = remarks;
+      document.getElementById('carImage').src = img_path;
+
+      $("#serviceHistory").append(trHTML);
+
+    });
 };

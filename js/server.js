@@ -71,7 +71,7 @@ app.get('/acar/:catnum', function(req, res) {
           error: "Could not find car"
         });
       } else {
-        // res.status(200).send(car)
+        res.status(200).send(car)
       }
     }
 });
@@ -155,10 +155,10 @@ app.post('/service/car/add', function(req, res) {
       }, function(err, service) {
         if (err) {
           res.status(500).send({
-            error: "Could not find car"
+            error: "Service not found"
           })
         } else {
-          console.log("Car found");
+          console.log("Service found");
           Car.update({
             cat_number: req.body.catNumberDropdown
           }, {
