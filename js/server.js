@@ -35,7 +35,6 @@ app.get('/', function(req, res) {
   });
 });
 
-//GET REQUESTS
 //Returns all the cars in the database
 app.get('/allcars', function(req, res) {
 
@@ -79,9 +78,7 @@ app.get('/acar/:catnum', function(req, res) {
     }
 });
 //End of obtain one cars information code
-//END OF GET REQUESTS
 
-//POST REQUESTS
 //The add a new car code via POST. Called from add_a_car.html file
 app.post("/addcar", function(req, res) {
   var imagesFolder = "/images/";
@@ -195,10 +192,9 @@ app.post('/service/car/add', function(req, res) {
       });
     };
   });
-});
+});//End of adding new service record for car
 
-
-//Obtain the service records of a car
+//Route for getting service record of a car
 app.get('/servicehistory/:catnum', function(req, res) {
   Car.findOne({
     cat_number: req.params.catnum
@@ -214,11 +210,13 @@ app.get('/servicehistory/:catnum', function(req, res) {
       res.status(200).send(services);
     }
   });
-});
+});//End of service history route
+
+//Route for updating a car in the database
 // Take the data from the form
 // Find the car in the database based on catalogue number
 // Update the fields when submitted
-app.post('/update/car/:catnum', function(req, res) {
+app.put('/update/car/:catnum', function(req, res) {
   var imagesFolder = "/images/";
   var fullPath = imagesFolder + req.body.imgPathField;
   Car.findOne({
@@ -264,8 +262,9 @@ app.post('/update/car/:catnum', function(req, res) {
         })
     }
   });
-});
+});// End of update route
 
+//Route for deleting a car from the catalogue
 app.delete('/deletecar/:catnum', function(req, res) {
   var catNumber = req.params.catnum;
   var query = {
@@ -281,7 +280,7 @@ app.delete('/deletecar/:catnum', function(req, res) {
       res.status(200).send(obj);
     }
   })
-})
+});//End of the delete route
 
 //Starts the server and listens on the given port
 app.listen(3000, function() {
