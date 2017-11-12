@@ -9,6 +9,9 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+var methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 // var db = mongoose.connect('mongodb://localhost:27017/christestdb');
@@ -229,25 +232,26 @@ app.post('/update/car/:catnum', function(req, res) {
       console.log("Car found " + car);
       Car.update({
           cat_number: req.params.catnum
-        }, {$set: {
-          cat_number: req.params.catnum,
-          car_number: req.body.catNumberField,
-          car_manufacturer: req.body.carManufacturerModelField,
-          car_number: req.body.carNumberField,
-          cat_number: req.body.catNumberDropdown,
-          color: req.body.colourField,
-          cost: req.body.costField,
-          img_path: fullPath,
-          ltd_edition: req.body.ltdEditionField,
-          make: req.body.carMakeField,
-          manufacturer_model: req.body.manufacturerModelField,
-          model_manufacturer: req.body.modelManufacturerField,
-          received: req.body.yearField,
-          source: req.body.sourceField,
-          type: req.body.carTypeField,
-          remarks: req.body.remarksField,
-        }
-      },
+        }, {
+          $set: {
+            cat_number: req.params.catnum,
+            car_number: req.body.catNumberField,
+            car_manufacturer: req.body.carManufacturerModelField,
+            car_number: req.body.carNumberField,
+            cat_number: req.body.catNumberDropdown,
+            color: req.body.colourField,
+            cost: req.body.costField,
+            img_path: fullPath,
+            ltd_edition: req.body.ltdEditionField,
+            make: req.body.carMakeField,
+            manufacturer_model: req.body.manufacturerModelField,
+            model_manufacturer: req.body.modelManufacturerField,
+            received: req.body.yearField,
+            source: req.body.sourceField,
+            type: req.body.carTypeField,
+            remarks: req.body.remarksField,
+          }
+        },
         function(err, car) {
           if (err) {
             console.log("Not updated " + err);
@@ -261,6 +265,23 @@ app.post('/update/car/:catnum', function(req, res) {
     }
   });
 });
+
+app.delete('/deletecar/:catnum', function(req, res) {
+  var catNumber = req.params.catnum;
+  var query = {
+    cat_number: catNumber
+  };
+
+  Car.remove(query, function(err, obj) {
+    if (err) {
+      res.status(500).send({
+        error: "Car not removed: " + err
+      })
+    } else {
+      res.status(200).send(obj);
+    }
+  })
+})
 
 //Starts the server and listens on the given port
 app.listen(3000, function() {

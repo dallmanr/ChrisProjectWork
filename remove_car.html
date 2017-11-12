@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Scalextric catalogue</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="js/server.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-10">
+
+        <nav class="navbar navbar-expand-sm bg-light navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalogue.html">VIEW CATALOGUE</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="add_a_car.html">ADD NEW CAR</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">EDIT CAR</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="service_history.html">NEW SERVICE</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="remove_car.html">DELETE CAR</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col"></div>
+    </div>
+
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-10">
+        <!-- <form method="post" action="/update/car/"> -->
+        <form method="post" id="removeForm" onsubmit="submitFunction()">
+          <!-- <input type="hidden" name="_method" value="DELETE"> -->
+          <div class="form-group ">
+            <label class="control-label">
+      Catalogue number<br>
+    </label>
+            <input class="form-control" list="catNumberDropdown" name="catNumberDropdown" onchange="getCarDetails(this.value)" />
+            <datalist id="catNumberDropdown">
+    </datalist>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label " for="carManufacturerModelField">
+      Car manufacturer
+    </label>
+            <input class="form-control" id="carManufacturerModelField" name="carManufacturerModelField" type="text" />
+          </div>
+
+          <div class="form-group ">
+            <label class="control-label " for="manufacturerModelField">
+        Manufacturer model
+      </label>
+            <input class="form-control" id="manufacturerModelField" name="manufacturerModelField" type="text" />
+          </div>
+
+          <div class="form-group ">
+            <label class="control-label " for="carNumberField">
+Car number
+</label>
+            <input class="form-control" id="carNumberField" name="carNumberField" type="text" />
+          </div>
+
+          <div class="form-group ">
+            <label class="control-label " for="colourField">
+Colour
+</label>
+            <input class="form-control" id="colourField" name="colourField" type="text" />
+          </div>
+
+          <div class="form-group ">
+            <label class="control-label " for="carTypeField">
+Car type
+</label>
+            <input class="form-control" id="carTypeField" name="carTypeField" type="text" />
+          </div>
+
+          <div class="form-group ">
+            <label class="control-label " for="ltdEditionField">
+Limited edition
+</label>
+            <input class="form-control" id="ltdEditionField" name="ltdEditionField" type="text" />
+          </div>
+
+          <div class="form-group ">
+            <label class="control-label " for="modelManufacturerField">
+Model manufacturer
+</label>
+            <input class="form-control" id="modelManufacturerField" name="modelManufacturerField" type="text" />
+          </div>
+          <div class="form-group ">
+            <label class="control-label " for="sourceField">
+Source
+</label>
+            <input class="form-control" id="sourceField" name="sourceField" type="text" />
+          </div>
+          <div class="form-group ">
+            <label class="control-label " for="carMakeField">
+Car maker
+</label>
+            <input class="form-control" id="carMakeField" name="carMakeField" type="text" />
+          </div>
+          <div class="form-group ">
+            <label class="control-label " for="yearField">
+Year
+</label>
+            <input class="form-control" id="yearField" name="yearField" type="text" />
+          </div>
+          <div class="form-group ">
+            <label class="control-label " for="costField">
+Cost
+</label>
+            <input class="form-control" id="costField" name="costField" type="text" />
+          </div>
+          <div class="form-group ">
+            <label class="control-label " for="remarksField">
+Remarks
+</label>
+            <input class="form-control" id="remarksField" name="remarksField" type="text" />
+          </div>
+
+          <div>
+            <img src="#" id="carImage" alt="Catalogue car image" width="100%">
+          </div>
+
+          <div>
+            <input type="submit" value="Delete car" class="btn btn-danger btn-block">
+          </div>
+      </div>
+      </form>
+      <div class="col"></div>
+    </div>
+
+    <script>
+      function onLoad() {
+        getCatNumbers();
+      }
+      onLoad();
+    </script>
+    <script>
+      function getCarDetails(val) {
+        localStorage.setItem("catNumber", val);
+        var catNumber = localStorage.getItem("catNumber");
+        console.log("Called in index");
+        console.log(catNumber);
+        getACarsDetails(val);
+      }
+    </script>
+
+    <script>
+      function setPath() {
+        var folder = document.getElementById('carTypeField').value + '/';
+        var image = document.getElementById('upload-input').value.split('\\').pop();
+        document.getElementById("imgPathField").value = folder + image;
+      }
+    </script>
+
+    <script>
+      function submitFunction() {
+        console.log(document.getElementById('catNumberDropdown'));
+        var action_src = "http://localhost:3000/deletecar/" + localStorage.getItem("catNumber") + "?_method=DELETE";
+        var aForm = document.getElementById('removeForm');
+        aForm.action = action_src;
+      }
+    </script>
+
+    <!-- <script>
+      function submit_by_id() {
+        var action_src = "http://localhost:3000/deletecar/" + localStorage.getItem("catNumber");
+        document.getElementById('removeForm').submit();
+      } -->
+    </script>
+</body>
+
+</html>
