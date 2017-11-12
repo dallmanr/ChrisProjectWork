@@ -188,7 +188,7 @@ Path
     <script>
       function submitFunction() {
         console.log(document.getElementById('catNumberDropdown'));
-        var action_src = "http://localhost:3000/update/car/" + localStorage.getItem("catNumber");
+        var action_src = "http://localhost:3000/update/car/" + localStorage.getItem("catNumber") + "?_method=PUT";
         var aForm = document.getElementById('editForm');
         aForm.action = action_src;
       }
