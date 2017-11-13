@@ -51,7 +51,74 @@
     <div class="row">
       <div class="col"></div>
       <div class="col-10">
-        <p>Here is some text</p>
+        <br>
+        <h5>Installation</h5>
+        <ol>
+          <li>Install Node from the usb stick</li>
+          <li>Install MongoDB from the usb stick</li>
+        </ol>
+        <p>Node is the server that runs the web pages and interacts with the database.<br>
+        MongoDB is a document database, it stores information in a JSON like format (BSON), an example is like this:</p>
+
+        <p>{ "_id": ObjectedId("5a06040a0as0asd3e"), "year": "2015", "make": "Scalextric", "source" "Ebay", "colur": "Red", }<br></p>
+
+        <p>The ObjectId is created automatically by the database and is the most common way of identifying a document you want.
+        However you can search by any of the fields. MongoDB uses a database name and collections to store data.
+        This has been a database called "scalextriccatalogue" and within it a collection called "cars" for me and what I we can set up for you.<br></p>
+
+        <p>Once both are installed go to C:\ on the computer where you will be running this, it will only work on a single machine as the
+        database would not be sync'd across multiple devices. On C:\ create a new folder called "data" and another folder within this one called "db", you should have "C:\data\db". MongoDB needs this to know where to store the database and it will not
+        load without it. <br></p>
+
+        <p>Copy the cars.json file from the usb stick to "C:\data". This is a backup of the collection I have been using and we can import it for you to use.<br></p>
+        <h5>To import:</h5>
+
+        <p>Navigate to the MongoDB installation folder "C:\Program Files\MongoDB\Server\3.4\bin".<br>
+        Run <i>"mongod.exe"</i>, this is the database and this needs to be open in order to import the data.<br>
+        Once open click the "File" in Windows and "Open windows powershell".</p>
+
+        <p><i>".\mongoimport.exe --db scalextriccatalogue --collection cars --file C:\data\cars.json"</i></p>
+
+        <p>You should be able to copy and paste the above into the powershell and it should tell you it has imported all the documents.
+        A document is a single cars data in this case.</p>
+        <p>To test that it has worked correctly you can run "mongo.exe". This is a shell and will give you control of the database. I do <em>not</em> recommend you use this very often as it can cause severe issues if a command goes wrong.</p>
+        If you type "show dbs" you should see "scalextriccatalogue". To navigate to it type "use scalextriccatalogue". You are now 'in' this database. You can then type "show collections" and you should see "cars" in it.
+        A simple query you can do is the following:</p>
+        <p><em>"db.collectionName.find({}).pretty()"</em></p>
+        <p>You replace collectionName with the name of the collection you want to search, in this case it is <em>cars</em>.</p>
+        <p><em>"db.cars.find({}).pretty()"</em></p>
+        <p>This will find ALL cars in the collection but it will only print a few at a time. The pretty command makes it much easier to read, otherwise it appears as one huge chunk
+        of text.</p>
+        <p>Like I said, I do not recommend keeping this "mongo.exe" shell open, so close it by "Ctrl" + "c". You probably won't need this again.</p>
+        <p>Copy "ChrisProject" to somewhere on your desktop/laptop. This contains everything I have put together.
+        I took the pictures you gave me and changed the name of them replacing the spaces and hyphens. These are now all contained within "ChrisProject\images\" in the same directory structure as before. These are not linked to any cars currently.</p>
+
+          <h5>To run:</h5>
+          <p>Go to <em>"C:\Program Files\MongoDB\Server\3.4\bin"</em> Run <em>"mongod.exe"</em> to run the database server. You will need to leave this running for as long as you are using the catalogue. To close it hold "Ctrl" and press "C".</p>
+          <p>Go to "ChrisProject\js" and click "File" and "Open powershell". In powershell type <em>node server.js</em>. You should see in Powershell "Chris' running on port 3000 Connected".</p>
+          <p>Open Chrome and go to "http://localhost:3000" and it should show you the index page. The nav bar at the top is quite self explanatory.</p>
+          <h6>View catalogue:</h6>
+          <p>You can view the cars here and their information, along with any service records they may have at the bottom. You cannot edit the cars here as the fields are readonly. You can search in the
+          catalogue number box for: catalogue number, manufacturer and model. Start typing any of those and it will start to reduce the number of options.</p>
+          <h6>Add new car:</h6>
+          <p>You can add a new car here. The img path at the bottom is taken from the "car type" drop down value and then the name of the image you select. This doesn't really do anything other than get sent to server to store "img_path".</p>
+          <p>When adding a new car you will see a JSON object returned which contains all the car information. This is to show it has been added, you can just go back a page and ignore this. If anything goes wrong it will post an error message and details
+          (which I can then use).</p>
+
+          <h6>Edit car:</h6>
+          <p>Can search same as catalogue. Can change the details of the car here and it will be updated. When updating a car you get another JSON object returned telling you how many records have been updated, if any.<p>
+          <h6>New service:</h6>
+          <p>Search for a car in the same way. The details are filled in automatically. Select the service details/type
+          and enter any remarks. This should then be linked to the car you selected. Can check this by going back to view catalogue and searching for that car.</p>
+
+          <h6>Delete car:</h6>
+          <p>Search for desired car and just press delete to remove it.</p>
+
+          <p>I have all this projecton Github. If you have any issues (any bugs) then instead of you bringing the entire thing back in on a usb stick I can make changes to my version and push them to Github.
+          This means you can just grab changes from there <a href="https://github.com/dallmanr/ScalextricCatalogue" target="_blank">(link here)</a>.</p>
+          <p>Press "Clone or download" and download as a zip. You can then extract contents to "ChrisProject", overwriting any existing files. If you wanted you could download the Github <a href="https://desktop.github.com/" target="_blank">desktop app.</a>
+          It is free and you can clone a "repository" right into the app. When you open the app you can check for changes and just pull them down directly. Let me know if this is of interest and I will help sort that out. It's not very difficult to do.
+
       </div>
       <div class="col"></div>
 </body>
